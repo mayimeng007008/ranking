@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lycm.dao.UserMapper">
+	<select id="findByNumber" resultType="User">
+	select * from User where number = #{number}
+	
+	</select>
+	<select id="findByPhone" resultType="User">
+	select * from user where phone = #{phone}
+	
+	</select>
+	<select id="selectByOpenId" resultType="User">
+	select * from user where open_id = #{openId}
+	
+	</select>
+	<select id="findRankMan" resultType="User">
+	select * from user where gender="1" and user_rank !="" order by user_rank 
+	
+	
+	</select>
+	<select id="findRankWoman" resultType="User">
+	select * from user where gender="0" and user_rank !="" order by user_rank 
+	</select>
+	<update id="updateRank" >
+	update user set user_rank=#{userRank},bottm_dte = #{bottmDte} where number=#{number}
+	
+	</update>
+		
+		
+</mapper>

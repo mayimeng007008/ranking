@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>排行榜</title>
+		<link rel="stylesheet" type="text/css" href="css/swiper.css"/>
+		
+		<style type="text/css">
+		
+			*{
+				padding: 0;
+				margin: 0;
+				color: #AA262B;
+				font-size: 50px;
+				box-sizing: border-box;
+			}
+			img{
+				width: 100%;
+				height: 1100px;
+			}
+			body{
+				width: 100%;
+			}
+			.heard{
+				width: 100%;
+				
+			}
+			.heard{
+				border-bottom: 2px solid #DEE2E6;
+			}
+			li{
+				list-style: none;
+			}
+			.heard li{
+				display: flex;
+				justify-content: center;
+				width: 30%;
+			}
+			.heard ul{
+				display: flex;
+				
+			}
+			.text{
+				width: 100%;
+			}
+			.text li{
+				display: flex;
+			}
+			.text li>div{
+				width: 30%;
+				color: #AA262B;
+				display: flex;
+				justify-content: center;
+			}
+			
+			#tpl{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				padding: 0 13%;
+			}
+			#pagination{
+				bottom: -30px;
+				z-index: 999999999;
+			}
+			#common>div{
+				height: 100%;
+			}
+			
+			#hide{
+				position: absolute;
+				width: 100%;
+				height: 30px;
+				top: 0;
+				left: 0;
+				z-index: 9999;
+			}
+			.add-dm{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+			}
+			.add-dm>div{
+				font-size:80px;
+			}
+			h3{
+				text-align: center;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<img style="position: fixed;top: 0px;left: 0;" src="img/bg.jpg" alt="" />
+		<div id="tpl" style="padding-top: 20%;">
+			<div class="heard">
+				<ul>
+					<li>排名</li>
+					<!--<li>号码</li>-->
+					<li>号码</li>
+					<li class="w">姓名</li>
+					<li>时间</li>
+				</ul>
+			</div>
+			<div id="common" >
+				<div class="swiper-container">
+				    <div class="swiper-wrapper">
+						<div class="swiper-slide" id="man1">
+							<div>
+								<h3>男</h3>
+							</div>
+							<ul class="text" id="man">
+								
+							</ul>
+						</div>
+						<div class="swiper-slide" id="wman1" >
+							<div>
+								<h3>女</h3>
+							</div>
+							<ul class="text" id="wman">
+								
+							</ul>
+						</div>
+				    </div>
+				   
+    				<div id="hide">
+    					
+    				</div>
+    				<div class="add-dm" id="danmu">
+    					
+    				</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/swiper.min.js" type="text/javascript" charset="utf-8"></script>	
+		<script src="js/jquery.danmu.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/text.js" type="text/javascript" charset="utf-8"></script>-->
+		<script>
+			$(function(){
+				var url="getRanking/o6vQZ4zEzVtPueP07kFJkEXpuQGs";
+			var data={
+					// "weiXinAppId":"wx94b8ee4866b22eb3",
+					// "appPswd":"abc",
+					// "totalReturned": 1000
+				};
+				data=JSON.stringify(data);
+				
+
+				//清除
+				//window.clearInterval(cler)
+		function text(url,data){
+			
+				var sgbl=[];
+				$.get(url, function(res,err) {
+				var data=res;
+					console.log(res)
+					
+			      if (data.status == "ok") {
+					  sgbl.push(res.rankMan);
+					  sgbl.push(res.rankWoman);
+					 
+					//男
+				       if(res.rankMan==null){
+				        $("#man1").hide();
+				         $("#man").html();
+				       }else if(res.rankMan!=null){
+				         $("#man1").show();
+				        var htmlC='';
+				         $("#man").html();
+				        for(var i=0;i<res.rankMan.length;i++){
+				         htmlC+=`<li><div>${res.rankMan[i].rank}</div><div>${res.rankMan[i].pzNumber}</div><div class='w'>${res.rankMan[i].name}</div><div>${res.rankMan[i].date}</div></li>`
+				        }
+				         $("#man").append(htmlC);
+				       
+				       }
+				       if(res.rankWoman==null){
+				         $("#wman1").hide();
+				          $("#wman").html();
+				       }else if(res.rankWoman!=null){
+				         var htmlC='';
+				       $("#wman1").show();
+				       $("#wman").html();
+				       for(var i=0;i<res.rankWoman.length;i++){
+				          htmlC+=`<li><div>${res.rankWoman[i].rank}</div><div>${res.rankWoman[i].pzNumber}</div><div class='w'>${res.rankWoman[i].name}</div><div>${res.rankWoman[i].date}</div></li>`
+				       }
+				        $("#wman").append(htmlC);
+				       }
+
+			        
+			       var mySwiper = new Swiper ('.swiper-container', {
+							 direction: 'horizontal', // 水平
+								 autoplay : {
+									 delay:10000
+									},
+								 effect : 'flip',
+								loop: true, // 循环模式选项
+								speed:1000,
+//								// 如果需要分页器
+//								pagination: {
+//									el: '.swiper-pagination',
+//									type:"fraction"
+//									}
+							})
+			       mySwiper.update();
+				  /*  mySwiper.el.onmouseover = function(){ //鼠标放上暂停轮播
+				         mySwiper.autoplay.stop();
+				       }
+				       mySwiper.el.onmouseleave = function(){
+				         mySwiper.autoplay.start();
+				       } */
+	
+			      }
+			    });
+				}
+				
+			    function addhtml(list,index,index2){
+						var html="";
+						
+						for(var i=index;i<index2;i++){
+							
+							html+=`<li><div>${list[i]}</div><div>${list[i].pzNumer}</div><div class='w'>${list[i].name}</div><div>${list[i].date}</div></li>`;
+						}
+						return html;
+					};
+					//遍历
+					function listHtml(data,index1,index2){
+					var addHtm3='';
+					if(index1==10){
+						addHtml3+='<div class="swiper-slide"><ul class="text">';
+						addHtm3+=`<div>男</div>`;
+					}else if(index1==20){
+						addHtml3+='<div class="swiper-slide"><ul class="text">';
+						addHtm3+=`<div>nv</div>`;
+					}
+			        var htm3=addhtml(data,index1,index2);
+			        addHtm3+=htm3;
+			        addHtm3+='</ul></div>';
+			        return addHtm3;
+				};
+//					//弹幕
+				function dm(){
+					var url="https://www.cdliyue.com/RegTEst/AdviceSuggestionForBarrage.aspx";
+					var data={
+							"weiXinAppId":"wx94b8ee4866b22eb3",
+							"appPswd":"abc",
+							
+						};
+						data=JSON.stringify(data);
+//						var danmuss={ 1:[ { "text":"hahahaha" , "color":"red" ,"size":"0","position":"0"}, 
+//										{ "text":"233333" , "color":"red" ,"size":"0","position":"2"} ],
+//										 3:[ { "text":"poi" , "color":"red" ,"size":"1","position":"1"}, 
+//										{ "text":"2333" , "color":"#FFFFFF" ,"size":"0","position":"3"} ],
+//										 50:[ { "text":"XXX真好" , "color":"#FFFFFF" ,"size":"0","position":"2"},
+//										] };
+						//请求弹幕
+						$.post(url, data, function(res,err) {
+							var data=JSON.parse(res);
+							$("#danmu").danmu({
+										left: 0, //区域的左边边界位置，相对于父div 
+										top: 0 , //区域的上边边界位置，相对于父div 
+										height: 630, //区域的高度 width: 640, //区域的宽度 
+										width:1000,
+										zindex :100, //div的css样式zindex
+										speed:12000, //弹幕速度，飞过区域的毫秒数 
+										sumtime:900000000000000 , //弹幕运行总时间
+										danmuss:{}, //danmuss对象，运行时的弹幕内容 
+										default_font_color:"#FFFFFF", //弹幕默认字体颜色 
+										font_size_small:30, //小号弹幕的字体大小,注意此属性值只能是整数
+										font_size_big:20, //大号弹幕的字体大小 
+										opacity:"1", //弹幕默认透明度 
+										top_botton_danmu_time:4000 //顶端底端弹幕持续时间 
+									});
+									var iindexDb=0;
+								var clr=setInterval(function(){
+									iindexDb++;
+									sendss(data.adviceSuggestions[iindexDb].AdviceSuggestionText);
+									if(iindexDb>data.adviceSuggestions.length){
+										clearInterval(clr)
+									}
+								},6000)
+								
+							
+							$('#danmu').danmu('danmu_resume');
+							
+							
+						})
+						
+						
+						}
+				function sendss(text){
+				var time = $('#danmu').data("nowtime")+23;
+				var a_danmuzz = {"text":text,"color":"#9f9f9f" ,"size":"0.8","position":"0","time":time}; 
+				$('#danmu').danmu("add_danmu",a_danmuzz);
+			}
+
+				dm();
+				text(url,data);
+				// 定时调用
+				
+				/* var cler=window.setInterval(function(){
+					text(url,data);
+					
+				},30000); */
+				window.setInterval(function(){
+					
+					dm();
+				},40000);
+				
+				 
+			})
+			
+	
+		</script>
+	</body>
+</html>

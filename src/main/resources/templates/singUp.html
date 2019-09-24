@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/singUp.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/frozen.css">
+		<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+		<script src="/js/flexborem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.Validform_right{
+			display: block;	
+			}
+		</style>
+		<title></title>
+	</head>
+	<body>
+		<div id="a">
+			<div id="heard">
+				<img src="https://www.cdliyue.com/PengZhou2019/pic_20190312-x/bg.jpg" >
+			</div>
+			<div id="form" class="ui-form ui-border-t">
+				<form  method="post" id="formBtn1">
+					
+					<div id="" class="ui-form-item ui-border-b">
+						<label class="sb">
+							<div class="a">输入姓名：</div>
+							<div id="" class="sbinput">
+								<input id="name1" name="name" datatype="*" nullmsg="姓名不能为空" errormsg="" type="text" placeholder="请输入您的姓名">
+							</div>
+							
+						</label>
+					</div>
+					
+					<div id="" class="ui-form-item ui-border-b">
+						<label class="sb">
+							<div class="a">输入手机号：</div>
+							<div id="" class="sbinput">
+								<input id="phone" name="phone" datatype="m" nullmsg="手机号码不能为空" errormsg="输入正确的手机号" pattern='[0-9]' type="text" placeholder="请输入您的手机号">
+							</div>
+							
+						</label>
+					</div>
+					
+					<div class="ui-form-item ui-border-b btnmsg">
+						<div id="" style="width: 67%;">
+							<input id="verificationCode" name="verificationCode" datatype="n" errormsg="请输入验证码" type="text" placeholder="请输入验证码">
+						</div>
+						<div id="">
+							<button  id="btnyz" type="button" class="ui-btn ui-btn-primary">获取验证码</button>
+						</div>
+					</div>
+					
+					<div id="" class="ui-form-item ui-border-b">
+						<label class="sb">
+							<div class="a">输入身份证号码：</div>
+							<div id="" class="sbinput">
+								<input id='idNumber' name="idNumber" pattern='[0-9]' datatype="idcard" type="text" placeholder="请输入身份证号码">
+							</div>
+						</label>
+					</div>
+					<div id="" class="ui-form-item ui-border-b">
+						<label class="sb">
+							<div class="a">选择性别：</div>
+							<div id="" class="sbinput sbinput1">
+								<div>
+									<label class="ui-radio" for="radio">
+									     <input value="男" name="gender" datatype="*" type="radio"><span>男</span>
+									</label>
+									
+								</div>
+								<div>
+									<label class="ui-radio" for="radio">
+									     <input value="女" name="gender"  type="radio"><span>女</span>
+									</label>
+									
+								</div>
+							</div>
+						</label>
+					</div>
+					<!--  -->
+					<div id="" class="ui-form-item ui-border-b">
+						<label class="sb">
+							<div class="a">选择衣服尺寸：</div>
+							<div id="" class="sbinput ui-select">
+								<select id="clothingSize" name="clothingSize" datatype="*">
+									<option value='' selected="">--请选择--</option>
+								   <option value="L">L</option>
+								   <option value="M">M</option>
+								   <option value="S">S</option>
+								   <option value="XL">XL</option>
+								   <option value="XXL">XXL</option>
+								</select>
+							</div>
+						</label>
+					</div>
+					<!--  -->
+					<div id="" class="ui-form-item ui-border-b">
+						<label class="sb">
+							<div class="a">紧急联系人姓名：</div>
+							<div id="" class="sbinput">
+								<input id="emergencyName" name="emergencyName" datatype="*" type="text" placeholder="输入紧急联系人姓名">
+							</div>
+							
+						</label>
+					</div>
+					<!--  -->
+					<div id="" class="ui-form-item ui-border-b">
+						<label class="sb">
+							<div class="a">紧急联系人号码：</div>
+							<div id="" class="sbinput">
+								<input id="emergencyPhone" name="emergencyPhone" datatype="m" pattern='[0-9]' type="text" placeholder="输入紧急联系人号码">
+							</div>
+							
+						</label>
+					</div>
+					<!--  -->
+					<div id="" class="ui-form-item ui-border-b">
+						<div id="">
+							<button type="button" id="btn_sub" class="ui-btn ui-btn-primary">提交</button>
+						</div>
+						<div id="">
+							<button type="button" class="ui-btn ui-btn-danger">取消</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script src="js/jQuery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/Validform.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/Validform_Datatype.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+	/* 		$("#formBtn1").Validform({
+					btnSubmit:"#btn_sub",
+					tiptype:3,
+					ajaxPost:true,
+					callback:function(data){
+						if(data.status=="y"){
+										setTimeout(function(){
+											$.Hidemsg(); //公用方法关闭信息提示框;显示方法是$.Showmsg("message goes here.");
+										},2000);
+									}
+					}
+				});   */
+				//a.submitForm(a,'ssss')
+				
+				//提交用户信息
+			$("#btn_sub").click(function(){
+					var data=JSON.stringify({
+					       "name":$("#name1").val(),
+					       "phone":$("#phone").val(),
+					       "verificationCode":$("#verificationCode").val(),
+					       "idNumber":$("#idNumber").val(),
+					       "gender":$('input:radio:checked').val(),
+					       "clothingSize":$('#clothingSize').val(),
+					       "emergencyName":$("#emergencyName").val(),
+					       "emergencyPhone":$("#emergencyPhone").val()
+					    });
+					$.ajax({
+					    type: "post",
+					    url: "insert",
+					    data:data,
+					    dataType: "json",
+					    contentType:"application/json", 
+					    success: function(res){
+					    	if(res.status==201){
+								alert('报名失败！请重试');
+								
+							}else if(res.status==200){
+								window.location.href='index';
+							}else if(res.status==204){
+								alert('验证码错误！！');
+							}
+					    }
+					});
+				
+				});
+				
+				
+				//获取验证码
+			$("#btnyz").click(function(){
+				
+				var phone=$("#phone").val();
+			
+				$.ajax({
+				    type: "post",
+				    url: "getVerificationCode",
+				    data: {
+				       "phone":phone,
+				    },
+				    dataType: "json",
+				    success: function(res){
+				    	if(res.status==201){
+				    		alert('发送验证码失败！');
+							
+						}else if(res.status==200){
+							alert('发送验证码成功！')
+						}else if(res.status==203){
+							alert('该手机已经被使用！')
+						}
+				    }
+				});
+			
+			});
+			})
+		</script>
+	</body>
+</html>

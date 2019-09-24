@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "mybatis",
+    "type": "java.lang.String",
+    "description": "A description for 'mybatis'"
+  },
+  {
+    "name": "mybatis-plus",
+    "type": "java.lang.String",
+    "description": "A description for 'mybatis-plus'"
+  }
+]}
